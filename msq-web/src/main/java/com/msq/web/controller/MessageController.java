@@ -1,0 +1,37 @@
+package com.msq.web.controller;
+
+import com.github.pagehelper.PageInfo;
+import com.msq.common.dto.UsersMessagesDTO;
+import com.msq.common.util.QueryData;
+import com.msq.common.util.ReturnResult;
+import com.msq.web.service.MessageService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+
+@RestController
+@RequestMapping("/message")
+public class MessageController {
+
+    @Autowired
+    private MessageService messageService;
+
+
+    @RequestMapping(value="/getMessage/{userId}/{otherUserId}/{time}",method = RequestMethod.POST)
+    public ReturnResult getMessage(@PathVariable Long userId, @PathVariable Long otherUserId,
+                                   @PathVariable Date time,
+                                   @RequestBody PageInfo pageInfo){
+        ReturnResult result = messageService.getMessage(userId, otherUserId, time,pageInfo);
+        return result;
+    }
+
+    @RequiresPermissions("chatrecord:query")
+    @RequestMapping(value = "/get-users-message")
+    public ReturnResult getUsersMessage(@RequestBody QueryData<UsersMessagesDTO> queryData){
+        ReturnResult usersMessage = messageService.getUsersMessage(queryData);
+        return usersMessage;
+    }
+
+}

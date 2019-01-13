@@ -1,0 +1,12 @@
+com\msq\zuul\redis\JsonMapperTool.class
+com\msq\zuul\redis\RedisConfig.class
+com\msq\zuul\redis\RedisConfig$1.class
+com\msq\zuul\filters\MsqZuulFilter.class
+com\msq\zuul\shiro\UserRealm.class
+com\msq\zuul\service\WebUserService.class
+com\msq\zuul\HichatZuulApplication.class
+com\msq\zuul\shiro\ShiroConfiguration.class
+com\msq\zuul\redis\RedisConn.class
+com\msq\zuul\service\HystrixWebUserHandler.class
+com\msq\zuul\filters\AuthFilter.class
+com\msq\zuul\redis\RedisUtil.class
