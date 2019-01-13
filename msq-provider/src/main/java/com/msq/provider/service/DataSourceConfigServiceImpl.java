@@ -19,8 +19,8 @@ public class DataSourceConfigServiceImpl {
 
     public ReturnResult getDataSourceConById(Long Id, PageInfo pageInfo) {
         PageHelper.startPage(pageInfo.getPageNum(),pageInfo.getPageSize());
-        List<DataSourceConfigDTO> dataSourceConfigDTOList = dataSourceConfigMapper.getDataSourceConById(id);
-        PageInfo<DataSourceConfigDTO> resultInfo=new PageInfo<DataSourceConfigDTO>(dataSourceConfigDTOList);
+//        List<DataSourceConfigDTO> dataSourceConfigDTOList = dataSourceConfigMapper.getDataSourceConById(id);
+        PageInfo<DataSourceConfigDTO> resultInfo=new PageInfo<DataSourceConfigDTO>(null);
         return ReturnResult.ok(resultInfo);
     }
 }
