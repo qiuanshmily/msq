@@ -1,6 +1,7 @@
 package com.msq.mobile.controller;
 
 
+import com.msq.common.Const;
 import com.msq.common.pojo.User;
 import com.msq.common.pojo.UserExample;
 import com.msq.common.util.FileUtil;
@@ -49,11 +50,11 @@ public class UserController {
         }
         ReturnResult loginResult = userService.login(account, password);
         Integer status = loginResult.getStatus();
-        if (status == 200) {
+        if (status == Const.HTTP_STATUS_SUCESS) {
             User resultUser = (User) loginResult.getData();
             String token = UUID.randomUUID().toString();
             String userJson = Json.toJson(resultUser);
-            redisUtil.set(token,userJson,7200l);
+            redisUtil.set(token,userJson,7200L);
             return ReturnResult.ok(token);
         }
         return loginResult;

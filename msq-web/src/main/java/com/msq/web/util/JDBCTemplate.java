@@ -1,16 +1,16 @@
 package com.msq.web.util;
-import com.digiwin.sqlengine.domain.view.DateSourceConfigView;
+import com.msq.common.pojo.SeDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 public class JDBCTemplate {
 
-    public static JdbcTemplate dataSourceManager(DateSourceConfigView dateSourceConfigView) {
+    public static JdbcTemplate dataSourceManager(SeDataSource seDataSource) {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(dateSourceConfigView.getDriverClassName());
-        dataSource.setUrl(dateSourceConfigView.getUrl());
-        dataSource.setUsername(dateSourceConfigView.getUserName());
-        dataSource.setPassword(dateSourceConfigView.getUserPwd());
+        dataSource.setDriverClassName(seDataSource.getDriverClassName());
+        dataSource.setUrl(seDataSource.getUrl());
+        dataSource.setUsername(seDataSource.getUserName());
+        dataSource.setPassword(seDataSource.getUserPwd());
         // 创建JDBC模板
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         // 这里也可以使用构造方法
@@ -21,7 +21,7 @@ public class JDBCTemplate {
 
 
     public static void main(String[] args) {
-        DateSourceConfigView dateSourceConfigView = new DateSourceConfigView();
+        SeDataSource dateSourceConfigView = new SeDataSource();
         dateSourceConfigView.setUrl("jdbc:mysql://172.16.101.62:3306/engine");
         dateSourceConfigView.setUserName("root");
         dateSourceConfigView.setUserPwd("DigiMobile!1");

@@ -55,6 +55,10 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/web/index/captcha-image", "anon");
         filterChainDefinitionMap.put("/web/web-user/to-login", "anon");
         filterChainDefinitionMap.put("/web/web-user/logout","logout");
+        filterChainDefinitionMap.put("/web/web-dataConfig/**","anon");
+        filterChainDefinitionMap.put("/web/web-fieldConfig/**","anon");
+        filterChainDefinitionMap.put("/web//web-service/**","anon");
+        filterChainDefinitionMap.put("/web/web-searchSql/**","anon");
         filterChainDefinitionMap.put("/web/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         shiroFilterFactoryBean.setFilters(filters);

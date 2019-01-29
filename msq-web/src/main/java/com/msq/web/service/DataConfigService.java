@@ -1,21 +1,23 @@
 package com.msq.web.service;
-import com.github.pagehelper.PageInfo;
+import com.msq.common.pojo.SeDataSource;
+import com.msq.common.pojo.SeDataSourceExample;
+import com.msq.common.util.QueryData;
 import com.msq.common.util.ReturnResult;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(value = "msq-provider",fallback = HystrixCommentHandler.class)
+@FeignClient(value = "msq-provider",fallback = HystrixDataConfigHandler.class)
 public interface DataConfigService {
 
-    /**
-     * 根据id查询数据库数据
-     * @param id
-     * @return  ReturnResult
-     */
-    @RequestMapping(value = "/dataSourceConfig/getDataSources/{id}",method = RequestMethod.POST)
-    ReturnResult getDataSourceInfoByUserId(@PathVariable(value = "id") Long id, @RequestBody PageInfo pageInfo);
+    @RequestMapping(value = "/web-dataSourceConfig/query-list")
+    ReturnResult queryList(@RequestBody QueryData<SeDataSourceExample> queryData);
+
+    @RequestMapping(value = "/web-dataSourceConfig/save-or-update")
+    ReturnResult saveOrUpdate(@RequestBody SeDataSource seDataSource);
+
+    @RequestMapping(value = "/web-dataSourceConfig/delete")
+    ReturnResult delete(@RequestBody SeDataSource seDataSource);
 
 }

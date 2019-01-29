@@ -1,5 +1,7 @@
 package com.msq.web.service;
-import com.github.pagehelper.PageInfo;
+import com.msq.common.pojo.SeDataSource;
+import com.msq.common.pojo.SeDataSourceExample;
+import com.msq.common.util.QueryData;
 import com.msq.common.util.ReturnResult;
 
 /**
@@ -10,15 +12,19 @@ import com.msq.common.util.ReturnResult;
  */
 public class HystrixDataConfigHandler implements DataConfigService{
 
-    /**
-     * @param id
-     * @param pageInfo
-     * @return
-     */
+
     @Override
-    public ReturnResult getDataSourceInfoByUserId(Long id, PageInfo pageInfo) {
+    public ReturnResult queryList(QueryData<SeDataSourceExample> queryData) {
         return ReturnResult.build(400,"系统异常");
     }
 
+    @Override
+    public ReturnResult saveOrUpdate(SeDataSource seDataSource) {
+        return ReturnResult.build(400,"系统异常");
+    }
 
+    @Override
+    public ReturnResult delete(SeDataSource seDataSource) {
+        return ReturnResult.build(400,"系统异常");
+    }
 }

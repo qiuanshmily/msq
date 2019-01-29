@@ -37,4 +37,6 @@ public class DataSourceConfigDTO {
     private long createId;
 
     private long updateId;
+
+    private String deletFlag;
 }

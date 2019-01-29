@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.msq.provider.mapper.SeSearchSqlMapper" >
+  <resultMap id="BaseResultMap" type="com.msq.common.pojo.SeSearchSql" >
+    <id column="search_id" property="searchId" jdbcType="BIGINT" />
+    <result column="search_name" property="searchName" jdbcType="VARCHAR" />
+    <result column="search_sql" property="searchSql" jdbcType="VARCHAR" />
+    <result column="data_source_id" property="dataSourceId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_id" property="createId" jdbcType="BIGINT" />
+    <result column="update_id" property="updateId" jdbcType="BIGINT" />
+    <result column="field_config" property="fieldConfig" jdbcType="VARCHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="VARCHAR" />
+    <result column="data_source_name" property="dataSourceName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    search_id, search_name, search_sql, data_source_id, create_time, update_time, create_id, 
+    update_id, field_config, delete_flag
+  </sql>
+
+  <sql id="Base_Column_Lists" >
+    search_id, search_name, search_sql,sds.data_source_name , ses.data_source_id, ses.create_time, ses.update_time, ses.create_id,
+    ses.update_id, ses.field_config, ses.delete_flag
+  </sql>
+
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.msq.common.pojo.SeSearchSqlExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_Lists" />
+    from se_search_sql ses
+    left join se_data_source sds
+    on ses.data_source_id = sds.data_source_id
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from se_search_sql
+    where search_id = #{searchId,jdbcType=BIGINT}
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="com.msq.common.pojo.SeSearchSql">
+    update se_search_sql
+    <set>
+      <if test="deleteFlag != null">
+        delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where search_id = #{searchId,jdbcType=BIGINT}
+  </update>
+  <delete id="deleteByExample" parameterType="com.msq.common.pojo.SeSearchSqlExample" >
+    delete from se_search_sql
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.msq.common.pojo.SeSearchSql" >
+    insert into se_search_sql (search_id, search_name, search_sql, 
+      data_source_id, create_time, update_time, 
+      create_id, update_id, field_config, 
+      delete_flag)
+    values (#{searchId,jdbcType=BIGINT}, #{searchName,jdbcType=VARCHAR}, #{searchSql,jdbcType=VARCHAR}, 
+      #{dataSourceId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createId,jdbcType=BIGINT}, #{updateId,jdbcType=BIGINT}, #{fieldConfig,jdbcType=VARCHAR}, 
+      #{deleteFlag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.msq.common.pojo.SeSearchSql" >
+    insert into se_search_sql
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="searchId != null" >
+        search_id,
+      </if>
+      <if test="searchName != null" >
+        search_name,
+      </if>
+      <if test="searchSql != null" >
+        search_sql,
+      </if>
+      <if test="dataSourceId != null" >
+        data_source_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="fieldConfig != null" >
+        field_config,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="searchId != null" >
+        #{searchId,jdbcType=BIGINT},
+      </if>
+      <if test="searchName != null" >
+        #{searchName,jdbcType=VARCHAR},
+      </if>
+      <if test="searchSql != null" >
+        #{searchSql,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSourceId != null" >
+        #{dataSourceId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=BIGINT},
+      </if>
+      <if test="fieldConfig != null" >
+        #{fieldConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.msq.common.pojo.SeSearchSqlExample" resultType="java.lang.Integer" >
+    select count(*) from se_search_sql
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update se_search_sql
+    <set >
+      <if test="record.searchId != null" >
+        search_id = #{record.searchId,jdbcType=BIGINT},
+      </if>
+      <if test="record.searchName != null" >
+        search_name = #{record.searchName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.searchSql != null" >
+        search_sql = #{record.searchSql,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataSourceId != null" >
+        data_source_id = #{record.dataSourceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createId != null" >
+        create_id = #{record.createId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateId != null" >
+        update_id = #{record.updateId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fieldConfig != null" >
+        field_config = #{record.fieldConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleteFlag != null" >
+        delete_flag = #{record.deleteFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update se_search_sql
+    set search_id = #{record.searchId,jdbcType=BIGINT},
+      search_name = #{record.searchName,jdbcType=VARCHAR},
+      search_sql = #{record.searchSql,jdbcType=VARCHAR},
+      data_source_id = #{record.dataSourceId,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_id = #{record.createId,jdbcType=BIGINT},
+      update_id = #{record.updateId,jdbcType=BIGINT},
+      field_config = #{record.fieldConfig,jdbcType=VARCHAR},
+      delete_flag = #{record.deleteFlag,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.msq.common.pojo.SeSearchSql" >
+    update se_search_sql
+    <set >
+      <if test="searchName != null" >
+        search_name = #{searchName,jdbcType=VARCHAR},
+      </if>
+      <if test="searchSql != null" >
+        search_sql = #{searchSql,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSourceId != null" >
+        data_source_id = #{dataSourceId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=BIGINT},
+      </if>
+      <if test="fieldConfig != null" >
+        field_config = #{fieldConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where search_id = #{searchId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.msq.common.pojo.SeSearchSql" >
+    update se_search_sql
+    set search_name = #{searchName,jdbcType=VARCHAR},
+      search_sql = #{searchSql,jdbcType=VARCHAR},
+      data_source_id = #{dataSourceId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_id = #{createId,jdbcType=BIGINT},
+      update_id = #{updateId,jdbcType=BIGINT},
+      field_config = #{fieldConfig,jdbcType=VARCHAR},
+      delete_flag = #{deleteFlag,jdbcType=VARCHAR}
+    where search_id = #{searchId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msq.provider.mapper.SeDataSourceMapper">
+  <resultMap id="BaseResultMap" type="com.msq.common.pojo.SeDataSource">
+    <id column="data_source_id" jdbcType="BIGINT" property="dataSourceId" />
+    <result column="data_source_name" jdbcType="VARCHAR" property="dataSourceName" />
+    <result column="data_source_type" jdbcType="VARCHAR" property="dataSourceType" />
+    <result column="data_source_address" jdbcType="VARCHAR" property="dataSourceAddress" />
+    <result column="data_source_port" jdbcType="VARCHAR" property="dataSourcePort" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_id" jdbcType="BIGINT" property="createId" />
+    <result column="update_id" jdbcType="BIGINT" property="updateId" />
+    <result column="driver_class_name" jdbcType="VARCHAR" property="driverClassName" />
+    <result column="library" jdbcType="VARCHAR" property="library" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="delete_flag" jdbcType="VARCHAR" property="deleteFlag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    data_source_id, data_source_name, data_source_type, data_source_address, data_source_port, 
+    user_name, user_pwd, create_time, update_time, create_id, update_id, driver_class_name, 
+    library, url, delete_flag
+  </sql>
+  <select id="selectByExample" parameterType="com.msq.common.pojo.SeDataSourceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from se_data_source
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from se_data_source
+    where data_source_id = #{dataSourceId,jdbcType=BIGINT}
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="com.msq.common.pojo.SeDataSource">
+    update se_data_source
+    <set>
+      <if test="deleteFlag != null">
+        delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where data_source_id = #{dataSourceId,jdbcType=BIGINT}
+  </update>
+  <delete id="deleteByExample" parameterType="com.msq.common.pojo.SeDataSourceExample">
+    delete from se_data_source
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.msq.common.pojo.SeDataSource">
+    insert into se_data_source (data_source_id, data_source_name, data_source_type, 
+      data_source_address, data_source_port, user_name, 
+      user_pwd, create_time, update_time, 
+      create_id, update_id, driver_class_name, 
+      library, url, delete_flag
+      )
+    values (#{dataSourceId,jdbcType=BIGINT}, #{dataSourceName,jdbcType=VARCHAR}, #{dataSourceType,jdbcType=VARCHAR}, 
+      #{dataSourceAddress,jdbcType=VARCHAR}, #{dataSourcePort,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userPwd,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createId,jdbcType=BIGINT}, #{updateId,jdbcType=BIGINT}, #{driverClassName,jdbcType=VARCHAR}, 
+      #{library,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.msq.common.pojo.SeDataSource">
+    insert into se_data_source
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dataSourceId != null">
+        data_source_id,
+      </if>
+      <if test="dataSourceName != null">
+        data_source_name,
+      </if>
+      <if test="dataSourceType != null">
+        data_source_type,
+      </if>
+      <if test="dataSourceAddress != null">
+        data_source_address,
+      </if>
+      <if test="dataSourcePort != null">
+        data_source_port,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userPwd != null">
+        user_pwd,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="updateId != null">
+        update_id,
+      </if>
+      <if test="driverClassName != null">
+        driver_class_name,
+      </if>
+      <if test="library != null">
+        library,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dataSourceId != null">
+        #{dataSourceId,jdbcType=BIGINT},
+      </if>
+      <if test="dataSourceName != null">
+        #{dataSourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSourceType != null">
+        #{dataSourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSourceAddress != null">
+        #{dataSourceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSourcePort != null">
+        #{dataSourcePort,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="updateId != null">
+        #{updateId,jdbcType=BIGINT},
+      </if>
+      <if test="driverClassName != null">
+        #{driverClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="library != null">
+        #{library,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.msq.common.pojo.SeDataSourceExample" resultType="java.lang.Integer">
+    select count(*) from se_data_source
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update se_data_source
+    <set>
+      <if test="record.dataSourceId != null">
+        data_source_id = #{record.dataSourceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.dataSourceName != null">
+        data_source_name = #{record.dataSourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataSourceType != null">
+        data_source_type = #{record.dataSourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataSourceAddress != null">
+        data_source_address = #{record.dataSourceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataSourcePort != null">
+        data_source_port = #{record.dataSourcePort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPwd != null">
+        user_pwd = #{record.userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createId != null">
+        create_id = #{record.createId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateId != null">
+        update_id = #{record.updateId,jdbcType=BIGINT},
+      </if>
+      <if test="record.driverClassName != null">
+        driver_class_name = #{record.driverClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.library != null">
+        library = #{record.library,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleteFlag != null">
+        delete_flag = #{record.deleteFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update se_data_source
+    set data_source_id = #{record.dataSourceId,jdbcType=BIGINT},
+      data_source_name = #{record.dataSourceName,jdbcType=VARCHAR},
+      data_source_type = #{record.dataSourceType,jdbcType=VARCHAR},
+      data_source_address = #{record.dataSourceAddress,jdbcType=VARCHAR},
+      data_source_port = #{record.dataSourcePort,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_pwd = #{record.userPwd,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_id = #{record.createId,jdbcType=BIGINT},
+      update_id = #{record.updateId,jdbcType=BIGINT},
+      driver_class_name = #{record.driverClassName,jdbcType=VARCHAR},
+      library = #{record.library,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      delete_flag = #{record.deleteFlag,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.msq.common.pojo.SeDataSource">
+    update se_data_source
+    <set>
+      <if test="dataSourceName != null">
+        data_source_name = #{dataSourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSourceType != null">
+        data_source_type = #{dataSourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSourceAddress != null">
+        data_source_address = #{dataSourceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSourcePort != null">
+        data_source_port = #{dataSourcePort,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        user_pwd = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="updateId != null">
+        update_id = #{updateId,jdbcType=BIGINT},
+      </if>
+      <if test="driverClassName != null">
+        driver_class_name = #{driverClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="library != null">
+        library = #{library,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where data_source_id = #{dataSourceId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.msq.common.pojo.SeDataSource">
+    update se_data_source
+    set data_source_name = #{dataSourceName,jdbcType=VARCHAR},
+      data_source_type = #{dataSourceType,jdbcType=VARCHAR},
+      data_source_address = #{dataSourceAddress,jdbcType=VARCHAR},
+      data_source_port = #{dataSourcePort,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_id = #{createId,jdbcType=BIGINT},
+      update_id = #{updateId,jdbcType=BIGINT},
+      driver_class_name = #{driverClassName,jdbcType=VARCHAR},
+      library = #{library,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      delete_flag = #{deleteFlag,jdbcType=VARCHAR}
+    where data_source_id = #{dataSourceId,jdbcType=BIGINT}
+  </update>
+</mapper>

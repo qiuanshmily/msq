@@ -1,0 +1,85 @@
+Index: msq-mobile/src/main/java/com/msq/mobile/controller/UserController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- msq-mobile/src/main/java/com/msq/mobile/controller/UserController.java	(revision 73b4f71412ac4aee2e258cdca53fa11f59402712)
++++ msq-mobile/src/main/java/com/msq/mobile/controller/UserController.java	(date 1547630881671)
+@@ -1,6 +1,7 @@
+ package com.msq.mobile.controller;
+ 
+ 
++import com.msq.common.Const;
+ import com.msq.common.pojo.User;
+ import com.msq.common.pojo.UserExample;
+ import com.msq.common.util.FileUtil;
+@@ -49,11 +50,11 @@
+         }
+         ReturnResult loginResult = userService.login(account, password);
+         Integer status = loginResult.getStatus();
+-        if (status == 200) {
++        if (status == Const.HTTP_STATUS_SUCESS) {
+             User resultUser = (User) loginResult.getData();
+             String token = UUID.randomUUID().toString();
+             String userJson = Json.toJson(resultUser);
+-            redisUtil.set(token,userJson,7200l);
++            redisUtil.set(token,userJson,7200L);
+             return ReturnResult.ok(token);
+         }
+         return loginResult;
+Index: msq-common/src/main/java/com/msq/common/Const.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- msq-common/src/main/java/com/msq/common/Const.java	(date 1547630863180)
++++ msq-common/src/main/java/com/msq/common/Const.java	(date 1547630863180)
+@@ -0,0 +1,20 @@
++package com.msq.common;
++
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.beans.factory.annotation.Value;
++import org.springframework.stereotype.Component;
++
++@Component
++public class Const {
++	
++	public static int HTTP_STATUS_SUCESS = 200;
++
++	public static String PASSWORD_KEY = "@#$%^&*()OPG#$%^&*(HG";
++
++	public static String DES3_KEY = "9964DYByKL967c3308imytCB";
++
++	public static int COOKIE_TIMEOUT= 30*24*60*60;
++
++	
++	
++}
+Index: msq-provider/src/main/resources/application.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- msq-provider/src/main/resources/application.yml	(revision 73b4f71412ac4aee2e258cdca53fa11f59402712)
++++ msq-provider/src/main/resources/application.yml	(date 1547629953862)
+@@ -5,9 +5,9 @@
+     name: msq-provider
+   datasource:
+         druid:
+-            url: jdbc:mysql://47.96.108.53:3307/hichat
++            url: jdbc:mysql://172.16.101.62/engine
+             username: root
+-            password: 123
++            password: DigiMobile!1
+             driver-class-name: com.mysql.jdbc.Driver
+             filters: stat
+             minIdle: 1
+@@ -27,7 +27,7 @@
+ 
+ mybatis:
+     mapper-locations: classpath:mapper/*.xml
+-    type-aliases-package: com.msq.common.pojo
++    type-aliases-package: com.hichat.common.pojo
+     configuration:
+       map-underscore-to-camel-case: true
+ 
