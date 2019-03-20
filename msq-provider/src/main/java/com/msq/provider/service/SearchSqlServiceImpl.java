@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.msq.common.pojo.SeSearchSql;
 import com.msq.common.pojo.SeSearchSqlExample;
+import com.msq.common.util.MatchesField;
 import com.msq.common.util.QueryData;
 import com.msq.common.util.ReturnResult;
 import com.msq.provider.mapper.SeSearchSqlMapper;
@@ -34,12 +35,20 @@ public class SearchSqlServiceImpl {
 
     @Transactional
     public ReturnResult saveOrUpdate(SeSearchSql seSearchSql){
-        if(seSearchSql.getSearchId()==null){
-            seSearchSqlMapper.insert(seSearchSql);
-        }else{
-            seSearchSqlMapper.updateByPrimaryKeySelective(seSearchSql);
+        List<String> sqlIsExist = seSearchSqlMapper.checkSqlExist(seSearchSql);
+        if(sqlIsExist.size()>0){
+            return ReturnResult.build(400,"sql名称已存在");
+        }else {
+            if(seSearchSql.getSearchId()==null){
+                String fields = MatchesField.queryFieldList(seSearchSql.getSearchSql());
+                seSearchSql.setFieldConfig(fields);
+                seSearchSqlMapper.insert(seSearchSql);
+            }else{
+                seSearchSqlMapper.updateByPrimaryKeySelective(seSearchSql);
+            }
+            return ReturnResult.ok();
         }
-        return ReturnResult.ok();
+
     }
 
     @Transactional

@@ -1,6 +1,7 @@
 server:
     port: 8324
 spring:
+  #profiles: docker
   application:
     name: msq-web
   redis:

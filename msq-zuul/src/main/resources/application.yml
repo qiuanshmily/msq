@@ -2,6 +2,7 @@ server:
   port: 8320
 
 spring:
+  #profiles: docker
   application:
     name: msq-zuul #指定服务名
   redis:
@@ -35,6 +36,10 @@ zuul:
   add-host-header: true
   sensitive-headers: "*"
   retryable: true
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 60000
+
 eureka:
   client:
     registerWithEureka: true #是否将自己注册到Eureka服务中，默认为true

@@ -36,12 +36,17 @@ public class DataSourceConfigServiceImpl {
 
     @Transactional
     public ReturnResult saveOrUpdate(SeDataSource seDataSource){
-        if(seDataSource.getDataSourceId()==null){
-            seDataSourceMapper.insert(seDataSource);
+        List dataSourceIsExist = seDataSourceMapper.checkNameCount(seDataSource);
+        if(dataSourceIsExist.size() >0){
+            return ReturnResult.build(400,"数据源名称已存在");
         }else{
-            seDataSourceMapper.updateByPrimaryKey(seDataSource);
+            if(seDataSource.getDataSourceId()==null){
+                seDataSourceMapper.insert(seDataSource);
+            }else{
+                seDataSourceMapper.updateByPrimaryKey(seDataSource);
+            }
+            return ReturnResult.ok();
         }
-        return ReturnResult.ok();
     }
 
     @Transactional

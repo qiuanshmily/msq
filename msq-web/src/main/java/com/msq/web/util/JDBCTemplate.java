@@ -8,7 +8,7 @@ public class JDBCTemplate {
     public static JdbcTemplate dataSourceManager(SeDataSource seDataSource) {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(seDataSource.getDriverClassName());
-        dataSource.setUrl(seDataSource.getUrl());
+        dataSource.setUrl(seDataSource.getUrl()+"/"+seDataSource.getLibrary()+"?autoReconnect=true&useSSL=false");
         dataSource.setUsername(seDataSource.getUserName());
         dataSource.setPassword(seDataSource.getUserPwd());
         // 创建JDBC模板

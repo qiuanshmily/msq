@@ -29,4 +29,5 @@ public interface SeFieldConfigMapper {
     int updateByPrimaryKey(SeFieldConfig record);
 
     List<SeFieldConfig> selectFieldsByDataSourceId(Integer dataSourceId);
+    List<String> checkFieldExist(SeFieldConfig record);
 }

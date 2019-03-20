@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @auther:Zhousl
  * @date:2019/1/18
@@ -35,9 +38,17 @@ public class ApiServiceController {
         return returnResult;
     }
 
-    @RequestMapping("/delete/{id}")
-    public ReturnResult delete(@PathVariable Long id){
-        ReturnResult returnResult = apiServiceImpl.delete(id);
+    @RequestMapping("/delete")
+    public ReturnResult delete(@RequestBody SeService seService){
+        ReturnResult returnResult = apiServiceImpl.delete(seService);
         return returnResult;
     }
+
+    @RequestMapping("/api-query")
+    public Map<String,Object> apiQuery(@RequestBody QueryData<SeServiceExample> queryData){
+        Map<String,Object> map = apiServiceImpl.queryMap(queryData);
+        return map;
+    }
+
+
 }

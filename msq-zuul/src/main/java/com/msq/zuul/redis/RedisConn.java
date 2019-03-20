@@ -3,6 +3,9 @@ package com.msq.zuul.redis;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author qiuanshmily
+ */
 @Component
 @ConfigurationProperties(prefix = "spring.redis")
 public class RedisConn {

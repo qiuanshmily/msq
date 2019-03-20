@@ -2,12 +2,16 @@ server:
   port: 8322
 spring:
   application:
+    #profiles: docker
     name: msq-provider
   datasource:
         druid:
             url: jdbc:mysql://47.96.108.53:3307/hichat?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
             username: root
             password: 123
+          #url: jdbc:mysql://172.16.101.62:3306/engine?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+          #username: root
+          #password: DigiMobile!1
             driver-class-name: com.mysql.jdbc.Driver
             filters: stat
             minIdle: 1

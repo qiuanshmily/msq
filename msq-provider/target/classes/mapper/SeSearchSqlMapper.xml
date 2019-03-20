@@ -122,11 +122,11 @@
   </delete>
   <insert id="insert" parameterType="com.msq.common.pojo.SeSearchSql" >
     insert into se_search_sql (search_id, search_name, search_sql, 
-      data_source_id, create_time, update_time, 
+      data_source_id,
       create_id, update_id, field_config, 
       delete_flag)
     values (#{searchId,jdbcType=BIGINT}, #{searchName,jdbcType=VARCHAR}, #{searchSql,jdbcType=VARCHAR}, 
-      #{dataSourceId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{dataSourceId,jdbcType=BIGINT},
       #{createId,jdbcType=BIGINT}, #{updateId,jdbcType=BIGINT}, #{fieldConfig,jdbcType=VARCHAR}, 
       #{deleteFlag,jdbcType=VARCHAR})
   </insert>
@@ -303,4 +303,10 @@
       delete_flag = #{deleteFlag,jdbcType=VARCHAR}
     where search_id = #{searchId,jdbcType=BIGINT}
   </update>
+  <select id="checkSqlExist" parameterType="com.msq.common.pojo.SeSearchSql" resultMap="BaseResultMap">
+    select search_name
+    from se_search_sql
+    where search_name = #{searchName,jdbcType=VARCHAR}
+    and delete_flag = #{deleteFlag,jdbcType=VARCHAR}
+  </select>
 </mapper>

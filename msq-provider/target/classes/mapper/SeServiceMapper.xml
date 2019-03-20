@@ -321,5 +321,19 @@
       delete_flag = #{deleteFlag,jdbcType=VARCHAR}
     where service_id = #{serviceId,jdbcType=BIGINT}
   </update>
-
+  <update id="deleteByIdAndFlag" parameterType="com.msq.common.pojo.SeSearchSql">
+    update se_service
+    <set>
+      <if test="deleteFlag != null">
+        delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=BIGINT}
+  </update>
+  <select id="checkServiceIsExist" parameterType="com.msq.common.pojo.SeSearchSql" resultMap="BaseResultMap">
+    select service_name
+    from se_service
+    where service_name = #{serviceName,jdbcType=VARCHAR}
+    and delete_flag = #{deleteFlag,jdbcType=VARCHAR}
+  </select>
 </mapper>

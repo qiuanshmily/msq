@@ -27,4 +27,10 @@ public interface SeServiceMapper {
     int updateByPrimaryKeySelective(SeService record);
 
     int updateByPrimaryKey(SeService record);
+
+    int deleteByIdAndFlag(SeService seService);
+
+    List<String> checkServiceIsExist(SeService seService);
+
+
 }

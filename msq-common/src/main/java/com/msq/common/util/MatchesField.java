@@ -1,10 +1,8 @@
-package com.msq.web.util;
+package com.msq.common.util;
 
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static java.util.regex.Pattern.*;
 
 /**
  * @author: create by qiuan
@@ -15,7 +13,7 @@ import static java.util.regex.Pattern.*;
 public class MatchesField {
    public static void main(String args[]) {
 
-        boolean m = checkSQL("select * from h_web_user where account = [h_web_user.account] and  id = [h_web_user.id]  ");
+        String m = queryFieldList("select * from h_web_user where account = [h_web_user.account] and  id = [h_web_user.id] ");
         System.out.println(m);
     }
 
@@ -26,12 +24,13 @@ public class MatchesField {
      */
     public static String queryFieldList(String sql){
        StringBuffer str = new StringBuffer();
-        Pattern pattern = Pattern.compile("(?<=\\')(.+?)(?=\\')");
+        Pattern pattern = Pattern.compile("(?<=\\[)(.+?)(?=\\])");
         Matcher matcher = pattern.matcher(sql);
         while(matcher.find()){
             String tmp= matcher.group();
             str.append(tmp).append(",");
         }
+        System.out.println(str);
         return str.toString().substring(0,str.length()-1);
     }
 

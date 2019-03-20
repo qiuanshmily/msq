@@ -6,8 +6,8 @@
   <packaging>pom</packaging>
   <modules>
 
-	    <module>msq-common</module>
-	   <module>msq-eureka</module>
+	  <module>msq-common</module>
+	  <module>msq-eureka</module>
 	  <module>msq-mobile</module>
 	  <module>msq-provider</module>
 	  <module>msq-web</module>

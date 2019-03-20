@@ -9,10 +9,10 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <parent>
-        <groupId>com.msq</groupId>
-        <artifactId>msq</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.14.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
@@ -84,8 +84,20 @@
             <artifactId>shiro-spring</artifactId>
             <version>1.4.0</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>4.3.13.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.38</version>
+        </dependency>
     </dependencies>
 
 

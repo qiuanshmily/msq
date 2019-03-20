@@ -27,4 +27,5 @@ public interface SeDataSourceMapper {
     int updateByPrimaryKeySelective(SeDataSource seDataSource);
 
     int updateByPrimaryKey(SeDataSource record);
+    List<String> checkNameCount(SeDataSource record);
 }

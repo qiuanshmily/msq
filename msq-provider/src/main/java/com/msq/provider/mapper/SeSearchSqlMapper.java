@@ -27,4 +27,5 @@ public interface SeSearchSqlMapper {
     int updateByPrimaryKeySelective(SeSearchSql record);
 
     int updateByPrimaryKey(SeSearchSql record);
+    List<String> checkSqlExist(SeSearchSql record);
 }

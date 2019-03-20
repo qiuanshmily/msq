@@ -4,6 +4,7 @@ import com.msq.common.pojo.SeService;
 import com.msq.common.pojo.SeServiceExample;
 import com.msq.common.util.QueryData;
 import com.msq.common.util.ReturnResult;
+import java.util.Map;
 
 /**
  * @auther:Zhousl
@@ -22,7 +23,13 @@ public class HystrixApiServiceHandler implements ApiService {
     }
 
     @Override
-    public ReturnResult delete(Long id) {
+    public ReturnResult delete(SeService seService) {
         return ReturnResult.build(400,"系统异常");
     }
+
+    @Override
+    public Map<String,Object> apiQuery(QueryData<SeServiceExample> queryData){return null;}
+
+
+
 }

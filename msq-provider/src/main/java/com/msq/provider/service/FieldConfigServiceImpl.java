@@ -35,12 +35,17 @@ public class FieldConfigServiceImpl {
 
     @Transactional
     public ReturnResult saveOrUpdate(SeFieldConfig seFieldConfig){
-        if(seFieldConfig.getDataSourceId()==null){
-            seFieldConfigMapper.insert(seFieldConfig);
+        List<String> fieldIsExist =seFieldConfigMapper.checkFieldExist(seFieldConfig);
+        if(fieldIsExist.size()>0){
+            return ReturnResult.build(400,"变量名已存在");
         }else{
-            seFieldConfigMapper.updateByPrimaryKeySelective(seFieldConfig);
+            if(seFieldConfig.getFieldConfigId()==null){
+                seFieldConfigMapper.insert(seFieldConfig);
+            }else{
+                seFieldConfigMapper.updateByPrimaryKeySelective(seFieldConfig);
+            }
+            return ReturnResult.ok();
         }
-        return ReturnResult.ok();
     }
 
     @Transactional

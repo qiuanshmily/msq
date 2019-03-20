@@ -120,14 +120,12 @@
   <insert id="insert" parameterType="com.msq.common.pojo.SeDataSource">
     insert into se_data_source (data_source_id, data_source_name, data_source_type, 
       data_source_address, data_source_port, user_name, 
-      user_pwd, create_time, update_time, 
-      create_id, update_id, driver_class_name, 
+      user_pwd, create_id, update_id, driver_class_name,
       library, url, delete_flag
       )
     values (#{dataSourceId,jdbcType=BIGINT}, #{dataSourceName,jdbcType=VARCHAR}, #{dataSourceType,jdbcType=VARCHAR}, 
       #{dataSourceAddress,jdbcType=VARCHAR}, #{dataSourcePort,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{userPwd,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{createId,jdbcType=BIGINT}, #{updateId,jdbcType=BIGINT}, #{driverClassName,jdbcType=VARCHAR}, 
+      #{userPwd,jdbcType=VARCHAR},#{createId,jdbcType=BIGINT}, #{updateId,jdbcType=BIGINT}, #{driverClassName,jdbcType=VARCHAR},
       #{library,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=VARCHAR}
       )
   </insert>
@@ -374,4 +372,10 @@
       delete_flag = #{deleteFlag,jdbcType=VARCHAR}
     where data_source_id = #{dataSourceId,jdbcType=BIGINT}
   </update>
+  <select id="checkNameCount" parameterType="com.msq.common.pojo.SeDataSource" resultMap="BaseResultMap">
+    select data_source_name
+    from se_data_source
+    where data_source_name=#{dataSourceName,jdbcType=VARCHAR}
+    and delete_flag = #{deleteFlag,jdbcType=VARCHAR}
+  </select>
 </mapper>
